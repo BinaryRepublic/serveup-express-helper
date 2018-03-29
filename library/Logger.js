@@ -10,7 +10,9 @@ class Logger {
             errorMsg:errorMsg,
             logDate:date
         }
-        console.info(JSON.stringify(obj));
+        if(process.env.TEST == undefined) {
+            console.info(JSON.stringify(obj));
+        }
     }
     error(responseStatusCode, requestMethod, requestPath, error) {
         var msg
