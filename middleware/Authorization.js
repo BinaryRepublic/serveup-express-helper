@@ -1,10 +1,10 @@
 'use strict';
 
-const RealmAccountController = require('../ro-realm/controller/RealmAccountController');
-const RealmMenuController = require('../ro-realm/controller/RealmMenuController');
-const RealmOrderController = require('../ro-realm/controller/RealmOrderController');
-const RealmRestaurantController = require('../ro-realm/controller/RealmRestaurantController');
-const RealmVoiceDeviceController = require('../ro-realm/controller/RealmVoiceDeviceController');
+const RealmAccountController = require('../../ro-realm/controller/RealmAccountController');
+const RealmMenuController = require('../../ro-realm/controller/RealmMenuController');
+const RealmOrderController = require('../../ro-realm/controller/RealmOrderController');
+const RealmRestaurantController = require('../../ro-realm/controller/RealmRestaurantController');
+const RealmVoiceDeviceController = require('../../ro-realm/controller/RealmVoiceDeviceController');
 
 class Authorization {
     constructor () {

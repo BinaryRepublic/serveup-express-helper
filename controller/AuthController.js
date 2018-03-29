@@ -1,7 +1,7 @@
 'use strict';
 
 const APIController = require('./APIController');
-const RealmAccountController = require('../ro-realm/controller/RealmAccountController');
+const RealmAccountController = require('../../ro-realm/controller/RealmAccountController');
 
 const AuthApiInterface = require('../library/AuthApiInterface');
 
