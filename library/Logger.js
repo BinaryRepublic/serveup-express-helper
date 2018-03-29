@@ -1,5 +1,5 @@
 
-class APIController {
+class Logger {
     log(responseStatusCode, requestMethod, requestPath, errorType, errorMsg) {
         let date = new Date()
         let obj = {
