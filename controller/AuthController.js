@@ -52,7 +52,7 @@ class AuthController extends APIController {
                     grant: newGrant
                 };
             }
-        }, res);
+        }, res, req);
     }
     logout (req, res) {
         let reqValid = this.requestValidator.validRequestData(req.body, [{
@@ -70,7 +70,7 @@ class AuthController extends APIController {
             return {
                 accessToken: accessToken
             };
-        }, res);
+        }, res, req);
     }
 }
 module.exports = AuthController;
