@@ -15,7 +15,7 @@ module.exports = (req, res, next) => {
             let errorObj = {
                 type: 'ACCESS_TOKEN_MISSING',
                 msg: 'Please send a valid access-token in the request header.'
-            }
+            };
             logger.error(400, req.method, req.path, errorObj);
             res.status(400).json({
                 error: errorObj

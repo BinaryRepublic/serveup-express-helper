@@ -1,28 +1,28 @@
 {
-    "name": "ro-express-helper",
-    "version": "1.0.0",
-    "description": "Module for express helper",
-    "scripts": {
-      "test": "exit 0"
-    },
-    "repository": {
-      "type": "git",
-      "url": "git+https://github.com/restaurantorder/ro-express-helper.git"
-    },
-    "author": "Henrik Engelbrink",
-    "license": "ISC",
-    "dependencies": {
-      "eslint": "^4.16.0",
-      "axios":"^0.18.0",
-      "express":"^4.16.3",
-      "uuid":"^3.2.1"
-    },
-    "devDependencies": {
-      "eslint-config-airbnb-base": "^12.1.0",
-      "eslint-config-standard": "^11.0.0-beta.0",
-      "eslint-plugin-import": "^2.8.0",
-      "eslint-plugin-node": "^5.2.1",
-      "eslint-plugin-promise": "^3.6.0",
-      "eslint-plugin-standard": "^3.0.1",
-    }
+  "name": "ro-express-helper",
+  "version": "1.0.0",
+  "description": "Module for express helper",
+  "scripts": {
+    "test": "exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/restaurantorder/ro-express-helper.git"
+  },
+  "author": "Henrik Engelbrink",
+  "license": "ISC",
+  "dependencies": {
+    "eslint": "^4.16.0",
+    "axios": "^0.18.0",
+    "express": "^4.16.3",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1"
   }
+}
