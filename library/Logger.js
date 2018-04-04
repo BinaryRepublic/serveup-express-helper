@@ -3,8 +3,8 @@ class Logger {
     log (responseStatusCode, requestMethod, requestPath, errorType, errorMsg) {
         let date = new Date();
         let obj = {
-            responseStatusCode: responseStatusCode,
-            requestMethode: requestMethod,
+            responseStatusCode:responseStatusCode,
+            requestMethod: requestMethod,
             requestPath: requestPath,
             errorType: errorType,
             errorMsg: errorMsg,
