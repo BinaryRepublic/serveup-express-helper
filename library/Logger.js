@@ -4,7 +4,7 @@ class Logger {
         let date = new Date()
         let obj = {
             responseStatusCode:responseStatusCode,
-            requestMethode: requestMethod,
+            requestMethod: requestMethod,
             requestPath: requestPath,
             errorType:errorType,
             errorMsg:errorMsg,
