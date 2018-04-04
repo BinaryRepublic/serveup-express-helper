@@ -29,8 +29,14 @@ class APIController {
                 this.logger.log(200, req.method, req.path, undefined);
                 res.json(jsonObject);
             } else {
-                this.logger.error(500, req.method, req.path, jsonObject.error);
-                res.status(500).json(jsonObject);
+                let errorObj = {
+                    error: {
+                        type: 'INTERNAL_SERVER_ERROR',
+                        msg: jsonObject.error
+                    }
+                };
+                this.logger.error(500, req.method, req.path, errorObj.error);
+                res.status(500).json(errorObj);
             }
         } else {
             let errorObj = {
