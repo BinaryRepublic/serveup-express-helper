@@ -10,11 +10,24 @@ class APIController {
         this.realmController = new ParentRealmController();
         this.logger = new Logger();
     };
-    handleRequest (requestValidError, databaseCallback, res, req) {
+    handleRequest (requestValidError, databaseCallback, res, req, async = false) {
         if (requestValidError === false) {
             let result = databaseCallback();
-            result = this.realmController.formatRealmObj(result);
-            this.handleResponse(res, result, req);
+            let responsePromise = new Promise(resolve => {
+                if (!async) {
+                    resolve(result);
+                } else {
+                    result.then(asyncResult => {
+                        resolve(asyncResult);
+                    }).catch(asyncResult => {
+                        resolve(asyncResult);
+                    });
+                }
+            });
+            responsePromise.then(result => {
+                result = this.realmController.formatRealmObj(result);
+                this.handleResponse(res, result, req);
+            });
         } else {
             let badRequest = {
                 error: requestValidError

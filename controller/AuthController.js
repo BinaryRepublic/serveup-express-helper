@@ -31,35 +31,33 @@ class AuthController extends APIController {
             nvalues: ['']
         }]);
         this.handleRequest(reqValid, () => {
-            let accountId;
-            // check if root login
-            if (req.body.mail === process.env.ROOT_USERNAME && req.body.password === process.env.ROOT_PASSWORD) {
-                accountId = 'root';
-            } else {
-                // user login
-                let account = this.realmAccount.objectsWithFilter('Account', 'mail == "' + req.body.mail + '" && password == "' + req.body.password + '"');
-                account = this.realmAccount.formatRealmObj(account)[0];
-                if (account) {
-                    accountId = account.id;
+            return new Promise((resolve, reject) => {
+                let accountId;
+                // check if root login
+                if (req.body.mail === process.env.ROOT_USERNAME && req.body.password === process.env.ROOT_PASSWORD) {
+                    accountId = 'root';
+                } else {
+                    // user login
+                    let account = this.realmAccount.objectsWithFilter('Account', 'mail == "' + req.body.mail + '" && password == "' + req.body.password + '"');
+                    account = this.realmAccount.formatRealmObj(account)[0];
+                    if (account) {
+                        accountId = account.id;
+                    }
                 }
-            }
-            if (accountId) {
-                let newGrant = uuidv4();
-                this.authApi.grant(newGrant, accountId).then(result => {
-                    // authentication successful
-                    this.logger.log(200, req.method, req.path, undefined);
-                }).catch(err => {
-                    this.logger.error(500, req.method, req.path, {
-                        type: 'INTERNAL_SERVER_ERROR',
-                        msg: err
+                if (accountId) {
+                    let newGrant = uuidv4();
+                    this.authApi.grant(newGrant, accountId).then(result => {
+                        // authentication successful
+                        resolve({
+                            accountId: result.clientId,
+                            grant: result.grant
+                        });
+                    }).catch(err => {
+                        reject({ error: err });
                     });
-                });
-                return {
-                    accountId: accountId,
-                    grant: newGrant
-                };
-            }
-        }, res, req);
+                }
+            });
+        }, res, req, true);
     }
     logout (req, res) {
         let reqValid = this.requestValidator.validRequestData(req.body, [{
@@ -68,19 +66,17 @@ class AuthController extends APIController {
             nvalues: ['']
         }]);
         this.handleRequest(reqValid, () => {
-            let accessToken = req.body.accessToken;
-            this.authApi.logout(accessToken).then(result => {
-                this.logger.log(200, req.method, req.path, undefined);
-            }).catch(err => {
-                this.logger.error(500, req.method, req.path, {
-                    type: 'INTERNAL_SERVER_ERROR',
-                    msg: err
+            return new Promise((resolve, reject) => {
+                let accessToken = req.body.accessToken;
+                this.authApi.logout(accessToken).then(() => {
+                    resolve({
+                        accessToken: accessToken
+                    });
+                }).catch(err => {
+                    reject({ error: err });
                 });
             });
-            return {
-                accessToken: accessToken
-            };
-        }, res, req);
+        }, res, req, true);
     }
 }
 module.exports = AuthController;
