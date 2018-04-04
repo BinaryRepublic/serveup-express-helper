@@ -4,6 +4,7 @@ const APIController = require('./APIController');
 const RealmAccountController = require('../../ro-realm/controller/RealmAccountController');
 
 const AuthApiInterface = require('../library/AuthApiInterface');
+const Logger = require('../library/Logger');
 
 const uuidv4 = require('uuid/v4');
 
@@ -12,6 +13,8 @@ class AuthController extends APIController {
         super();
         this.realmAccount = new RealmAccountController();
         this.authApi = new AuthApiInterface();
+        this.logger = new Logger();
+
         this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
     };
@@ -44,8 +47,12 @@ class AuthController extends APIController {
                 let newGrant = uuidv4();
                 this.authApi.grant(newGrant, accountId).then(result => {
                     // authentication successful
+                    this.logger.log(200, req.method, req.path, undefined);
                 }).catch(err => {
-                    console.log(err);
+                    this.logger.error(500, req.method, req.path, {
+                        type: 'INTERNAL_SERVER_ERROR',
+                        msg: err
+                    });
                 });
                 return {
                     accountId: accountId,
@@ -63,9 +70,12 @@ class AuthController extends APIController {
         this.handleRequest(reqValid, () => {
             let accessToken = req.body.accessToken;
             this.authApi.logout(accessToken).then(result => {
-                // logout successful
+                this.logger.log(200, req.method, req.path, undefined);
             }).catch(err => {
-                console.log('/logout error: ' + err);
+                this.logger.error(500, req.method, req.path, {
+                    type: 'INTERNAL_SERVER_ERROR',
+                    msg: err
+                });
             });
             return {
                 accessToken: accessToken
